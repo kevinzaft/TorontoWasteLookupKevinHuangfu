@@ -4,10 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebApplication1.Models;
-using WebApplication1.ViewModel;
+using TorontoWasteLookup.Models;
+using TorontoWasteLookup.ViewModel;
 
-namespace WebApplication1.Controllers
+namespace TorontoWasteLookup.Controllers
 {
     public class HomeController : Controller
     {

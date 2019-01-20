@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using WebApplication1.Models;
+using TorontoWasteLookup.Models;
 
-namespace WebApplication1.ViewModel
+namespace TorontoWasteLookup.ViewModel
 {
     public class WasteInfoViewModel
     {
