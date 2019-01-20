@@ -20,6 +20,7 @@ namespace TorontoWasteLookup.Controllers
         [HttpPost]
         public ActionResult Index(string searchField)
         {
+            var temp = getWasteInfoFromJSON();
             model.wasteInfoList = getWasteInfoFromJSON()
                 .Where(x => typeof(WasteInfo).GetProperties().Any(prop => prop.GetValue(x,null).ToString().Contains(searchField))).ToList();
             ViewBag.enteredSearch = searchField;

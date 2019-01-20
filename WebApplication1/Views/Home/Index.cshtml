@@ -3,65 +3,41 @@
 @{
 	ViewBag.Title = "Toronto Waste Lookup";
 }
-
-<div>
-	<form action="/home/Index" method="post">
-		<div id="wrapper">
-			<input class="form-control" id="searchField" type="text" name="searchField" placeholder="Search..." value="@(String.IsNullOrEmpty(ViewBag.enteredSearch)?"":ViewBag.enteredSearch)"/>
-			<button id="search-button" type="Submit" class=""></button>
-		</div>
-	</form>
-</div>
-
-@if (Model != null)
-{
-	<div class="content">
-		<table class="table">
-			<tbody>
-				@foreach (var item in Model.wasteInfoList)
-				{
-					<tr>
-						<td style="width:4%; vertical-align:top; text-align:right;">
-							@if (Model.favouriteList.Contains(item))
-							{
-								<form action="/home/RemoveFromFav" method="post">
-									<input style="display:none" class="form-control" id="search" type="search" name="search" value="@ViewBag.enteredSearch" />
-									<input style="display:none" class="form-control" id="title" type="text" name="title" value="@item.title" />
-									<button id="green-star" type="Submit" class=""></button>
-								</form>
-							}
-							else
-							{
-								<form action="/home/AddToFav" method="post">
-									<input style="display:none" class="form-control" id="search" type="search" name="search" value="@ViewBag.enteredSearch" />
-									<input style="display:none" class="form-control" id="title" type="text" name="title" value="@item.title" />
-									<button id="gray-star" type="Submit" class=""></button>
-								</form>
-							}
-						</td>
-						<td style="width:47%">@Html.Raw(HttpUtility.HtmlDecode(item.title))</td>
-						<td style="width:47%">@Html.Raw(HttpUtility.HtmlDecode(item.body))</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-		@if (Model.favouriteList.Count > 0)
-		{
-			<div>
-				Favourites
+<div class="container body-content">
+	<div>
+		<form action="/home/Index" method="post">
+			<div id="wrapper">
+				<input class="form-control" id="searchField" type="text" name="searchField" placeholder="Search..." value="@(String.IsNullOrEmpty(ViewBag.enteredSearch)?"":ViewBag.enteredSearch)" />
+				<button id="search-button" type="Submit" class=""></button>
 			</div>
+		</form>
+	</div>
+
+	@if (Model != null)
+	{
+		<div class="content">
 			<table class="table">
 				<tbody>
-
-					@foreach (var item in Model.favouriteList)
+					@foreach (var item in Model.wasteInfoList)
 					{
 						<tr>
 							<td style="width:4%; vertical-align:top; text-align:right;">
-								<form action="/home/RemoveFromFav" method="post">
-									<input style="display:none" class="form-control" id="search" type="search" name="search" value="@ViewBag.enteredSearch" />
-									<input style="display:none" class="form-control" id="title" type="text" name="title" value="@item.title" />
-									<button id="green-star" type="Submit" class=""></button>
-								</form>
+								@if (Model.favouriteList.Contains(item))
+								{
+									<form action="/home/RemoveFromFav" method="post">
+										<input style="display:none" class="form-control" id="search" type="search" name="search" value="@ViewBag.enteredSearch" />
+										<input style="display:none" class="form-control" id="title" type="text" name="title" value="@item.title" />
+										<button id="green-star" type="Submit" class=""></button>
+									</form>
+								}
+								else
+								{
+									<form action="/home/AddToFav" method="post">
+										<input style="display:none" class="form-control" id="search" type="search" name="search" value="@ViewBag.enteredSearch" />
+										<input style="display:none" class="form-control" id="title" type="text" name="title" value="@item.title" />
+										<button id="gray-star" type="Submit" class=""></button>
+									</form>
+								}
 							</td>
 							<td style="width:47%">@Html.Raw(HttpUtility.HtmlDecode(item.title))</td>
 							<td style="width:47%">@Html.Raw(HttpUtility.HtmlDecode(item.body))</td>
@@ -69,6 +45,38 @@
 					}
 				</tbody>
 			</table>
-		}
+		</div>
+	}
+</div>
+@if (Model != null)
+{
+	<div class="favourites">
+		<div class="container body-content">
+			@if (Model.favouriteList.Count > 0)
+			{
+				<div class="favourite-text">
+					Favourites
+				</div>
+				<table class="table">
+					<tbody>
+
+						@foreach (var item in Model.favouriteList)
+						{
+							<tr>
+								<td style="width:4%; vertical-align:top; text-align:right;">
+									<form action="/home/RemoveFromFav" method="post">
+										<input style="display:none" class="form-control" id="search" type="search" name="search" value="@ViewBag.enteredSearch" />
+										<input style="display:none" class="form-control" id="title" type="text" name="title" value="@item.title" />
+										<button id="green-star" type="Submit" class=""></button>
+									</form>
+								</td>
+								<td style="width:47%">@Html.Raw(HttpUtility.HtmlDecode(item.title))</td>
+								<td style="width:47%">@Html.Raw(HttpUtility.HtmlDecode(item.body))</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			}
+		</div>
 	</div>
 }
