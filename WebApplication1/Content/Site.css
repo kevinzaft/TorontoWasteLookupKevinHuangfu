@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 20px;
 }
 
@@ -17,8 +17,69 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.header {
+    width:100%;
+    height: 200px;
+    background-image: linear-gradient(to right, rgba(29,87,150,1), rgba(35,153,92,1));
+    display: table;
+}
+
+.header-text {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+.search-container {
+    margin-top: 15px;
+}
+
+div#wrapper {
+    padding: 0 0 10px;
+    padding-top: 25px;
+    width: inherit;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    display: flex;
+}
+#searchField {
+    flex: 1;
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 0 10px 0 0px;
+    height: 42px;
+}
+#search-button {
+    background: url(./images/design.png);
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border: 0;
+}
+#gray-star {
+    background: url(./images/gray.png);
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border: 0;
+}
+#green-star {
+    background: url(./images/green.png);
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border: 0;
 }

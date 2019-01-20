@@ -1,30 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication1.Models;
+using WebApplication1.ViewModel;
 
 namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        public static WasteInfoViewModel model = new WasteInfoViewModel();
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Index(string searchField)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            model.wasteInfoList = getWasteInfoFromJSON()
+                .Where(x => typeof(WasteInfo).GetProperties().Any(prop => prop.GetValue(x,null).ToString().Contains(searchField))).ToList();
+            ViewBag.enteredSearch = searchField;
+            return View(model);
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult AddToFav(string title, string search)
         {
-            ViewBag.Message = "Your contact page.";
+            var selectedWasteInfo = model.wasteInfoList.Where(x => x.title == title).First();
+            if (!model.favouriteList.Contains(selectedWasteInfo))
+            {
+                model.favouriteList.Add(selectedWasteInfo);
+            }
 
-            return View();
+            ViewBag.enteredSearch = search;
+            return View("Index", model);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveFromFav(string title, string search)
+        {
+            var selectedWasteInfo = model.favouriteList.Where(x => x.title == title).First();
+            model.favouriteList.Remove(selectedWasteInfo);
+
+            ViewBag.enteredSearch = search;
+            return View("Index", model);
+        }
+
+        private List<WasteInfo> getWasteInfoFromJSON()
+        {
+            var jsonString = new WebClient().DownloadString("https://secure.toronto.ca/cc_sr_v1/data/swm_waste_wizard_APR?limit=1000");
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<WasteInfo>>(jsonString);
         }
     }
 }
